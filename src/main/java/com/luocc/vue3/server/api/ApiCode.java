@@ -5,7 +5,6 @@ package com.luocc.vue3.server.api;
  */
 public enum ApiCode {
 
-    /** 系统级Code: 5000内 */
     SUCCESS(200, "操作成功"),
     UNAUTHORIZED(401, "非法访问"),
     NOT_PERMISSION(403, "权限不足"),
@@ -13,16 +12,11 @@ public enum ApiCode {
     METHOD_NOT_ALLOWED(405, "方法不被允许"),
     TOO_MANY_REQUESTS(429, "服务忙，稍后再试"),
     FAIL(500, "操作失败"),
-    LOGIN_EXCEPTION(4000, "登陆失败"),
-    SYSTEM_EXCEPTION(5000, "系统异常"),
 
-    /** 参数校验级Code: 5001 - 6000 */
-    PARAMETER_EXCEPTION(5001, "请求参数校验异常"),
-
-    /** 业务级Code: 6001 - 7000 */
-    USER_UNAUTHORIZED(6001, "未授权，请先授权再访问"),
-    USER_TWO_PASSWORDS_INCONSISTENT(6002, "两次输入密码不一致"),
-    USER_ACCOUNT_REGISTERED(6003, "该账号已被注册"),
+    APP_INFO_NOT_EXIST(100001, "账户不存在"),
+    PASSWORD_ERROR(100002, "密码错误"),
+    ACCOUNT_DISABLED(100003, "账户被禁用"),
+    ACCOUNT_ALREADY_EXISTS(100004, "账户已存在"),
             ;
     private final int code;
     private final String msg;

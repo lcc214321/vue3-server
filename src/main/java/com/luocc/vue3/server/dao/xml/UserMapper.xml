@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.luocc.vue3.server.dao.UserMapper">
+
+    <resultMap id="BaseResultMap" type="com.luocc.vue3.server.bean.po.User">
+        <id column="id" property="id"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="sex" property="sex"/>
+        <result column="is_disabled" property="isDisabled"/>
+        <result column="create_at" property="createAt"/>
+        <result column="create_by" property="createBy"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id,
+        username,
+        password,
+        sex,
+        is_disabled,
+        create_at,
+        create_by
+    </sql>
+
+    <select id="selectByUsername" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="username != null and username != ''">
+                and username = #{username}
+            </if>
+        </trim>
+        limit 1
+    </select>
+
+    <select id="query" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="username != null and username != ''">
+                and username like #{username}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="is_disabled != null and is_disabled != 0">
+                and is_disabled = #{is_disabled}
+            </if>
+        </trim>
+        ORDER BY create_at DESC
+        limit #{start_row}, #{offset_limit}
+    </select>
+
+    <select id="queryCount" resultType="java.lang.Integer">
+        select
+        count(0)
+        from t_user
+        <trim prefix="WHERE" prefixOverrides="AND">
+            <if test="username != null and username != ''">
+                and username like #{username}
+            </if>
+            <if test="sex != null">
+                and sex = #{sex}
+            </if>
+            <if test="is_disabled != null and is_disabled != 0">
+                and is_disabled = #{is_disabled}
+            </if>
+        </trim>
+    </select>
+
+</mapper>
